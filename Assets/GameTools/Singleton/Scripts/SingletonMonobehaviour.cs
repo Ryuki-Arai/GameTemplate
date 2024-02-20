@@ -3,6 +3,8 @@ using System;
 
 public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [SerializeField] private bool isDontDestoroyOnLoad;
+
     private static T instance;
 
     //外部からアクセスされるためのプロパティ
@@ -35,6 +37,8 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
         // 他のゲームオブジェクトにアタッチされているか調べる
         // アタッチされている場合は破棄する。
         CheckInstance();
+
+        if(isDontDestoroyOnLoad) DontDestroyOnLoad(this.gameObject);
     }
 
     protected void CheckInstance()
